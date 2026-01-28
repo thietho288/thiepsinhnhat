@@ -40,10 +40,11 @@
             box-shadow: 0 8px 15px rgba(0,0,0,0.1);
             border-radius: 5px;
             transform-origin: top center;
-            margin-bottom: -100px; /* Đẩy sát vào phong bì */
-            opacity: 0; /* Ẩn đi */
-            transition: all 0.8s ease;
-            z-index: 1;
+            opacity: 0; 
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 20; /* Nằm trên cùng khi hiện ra */
+            position: absolute;
+            top: 0;
         }
 
         .photo-frame img {
@@ -53,7 +54,7 @@
             border-radius: 2px;
         }
 
-        /* --- PHONG BÌ --- */
+        /* --- PHONG BÌ VÀ HIỆU ỨNG RUNG --- */
         .envelope-wrapper {
             position: relative;
             width: 300px;
@@ -64,6 +65,13 @@
             cursor: pointer;
             z-index: 10;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            animation: shake 1.5s infinite; /* Hiệu ứng rung rinh */
+        }
+
+        @keyframes shake {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03) rotate(1deg); }
+            100% { transform: scale(1); }
         }
 
         .envelope-flap {
@@ -80,7 +88,7 @@
             z-index: 4;
         }
 
-        /* TỜ THIỆP (ẨN BAN ĐẦU) */
+        /* TỜ THIỆP */
         .letter {
             position: absolute;
             bottom: 0;
@@ -98,16 +106,20 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            visibility: hidden; /* Không cho nhìn thấy nội dung khi chưa mở */
+            visibility: hidden;
         }
 
         .letter h2 { color: #d63384; font-size: 16px; margin: 0; }
         .letter p { font-size: 14px; color: #333; line-height: 1.5; margin: 8px 0; }
 
-        /* --- TRẠNG THÁI SAU KHI BẤM MỞ --- */
+        /* --- KHI MỞ PHONG BÌ --- */
+        .open .envelope-wrapper {
+            animation: none; /* Dừng rung khi đã mở */
+        }
+
         .open .photo-frame {
             opacity: 1;
-            margin-bottom: 20px; /* Đẩy lên vị trí đẹp */
+            top: -180px; /* Đẩy khung ảnh lên cao hẳn phía trên phong bì */
             animation: swing 3s ease-in-out infinite;
         }
 
@@ -118,9 +130,9 @@
 
         .open .letter {
             visibility: visible;
-            bottom: 110px;
+            bottom: 100px;
             height: auto;
-            min-height: 220px;
+            min-height: 210px;
             z-index: 5;
             box-shadow: 0 5px 20px rgba(0,0,0,0.2);
         }
@@ -136,16 +148,15 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 20;
+            z-index: 25;
             background: #ffffff;
             color: var(--color-env);
             border: none;
             padding: 15px 25px;
             border-radius: 40px;
             font-weight: bold;
-            font-size: 18px;
+            font-size: 17px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            white-space: nowrap;
         }
 
         .open .btn-open { display: none; }
@@ -163,8 +174,9 @@
 <body>
 
     <div class="container" id="mainContainer">
+        
         <div class="photo-frame">
-            <img src="https://via.placeholder.com/150" alt="Ảnh kỷ niệm">
+            <img src="https://drive.google.com/file/d/1DhLsiNFMmnRSR_NJx-4JQAaS3ZndQN9W/view?usp=drivesdk" alt="Ảnh kỷ niệm">
         </div>
 
         <div class="envelope-wrapper" id="envelope" onclick="openEnvelope()">
@@ -183,11 +195,8 @@
 
     <script>
         function openEnvelope() {
-            // Thêm class 'open' vào container để kích hoạt tất cả hiệu ứng cùng lúc
             document.getElementById('mainContainer').classList.add('open');
             document.getElementById('envelope').classList.add('open');
-            
-            // Tạo tim rơi
             setInterval(createHeart, 400);
         }
 
