@@ -24,53 +24,24 @@
             overflow: hidden;
         }
 
-        .container {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-        }
-
-        /* --- KHUNG TRANH (BAY CAO KHI MỞ) --- */
-        .photo-frame {
-            width: 150px;
-            background: white;
-            padding: 10px 10px 25px 10px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-            border-radius: 5px;
-            transform-origin: top center;
-            opacity: 0; 
-            transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 30;
-            position: absolute;
-            top: 20px;
-        }
-
-        .photo-frame img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 2px;
-        }
-
-        /* --- PHONG BÌ (BẤM Ở ĐÂU CŨNG ĐƯỢC) --- */
+        /* --- PHONG BÌ & HIỆU ỨNG RUNG RINH --- */
         .envelope-wrapper {
             position: relative;
             width: 320px;
-            height: 200px;
+            height: 220px;
             background-color: var(--color-env);
             border-bottom-left-radius: 10px;
             border-bottom-right-radius: 10px;
             cursor: pointer;
             z-index: 10;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            animation: heartBeat 2s infinite;
+            animation: shake 2s infinite ease-in-out;
         }
 
-        @keyframes heartBeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.03); }
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            10%, 30%, 50% { transform: rotate(1.5deg); }
+            20%, 40%, 60% { transform: rotate(-1.5deg); }
         }
 
         .envelope-flap {
@@ -81,79 +52,93 @@
             height: 0;
             border-left: 160px solid transparent;
             border-right: 160px solid transparent;
-            border-top: 110px solid var(--color-env-dark);
+            border-top: 120px solid var(--color-env-dark);
             transform-origin: top;
-            transition: transform 0.5s ease;
-            z-index: 4;
-            pointer-events: none; /* Để có thể bấm xuyên qua nắp xuống wrapper */
+            transition: transform 0.6s ease;
+            z-index: 5;
+            pointer-events: none;
         }
 
-        /* TỜ THIỆP (DÀI HƠN ĐỂ KHÔNG BỊ CHE) */
+        /* NÚT BẤM GIỮA PHONG BÌ */
+        .btn-center {
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 6;
+            background: white;
+            color: var(--color-env);
+            padding: 12px 22px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 14px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            pointer-events: none;
+        }
+
+        /* --- TỜ THIỆP & KHUNG ẢNH LẮC LƯ --- */
         .letter {
             position: absolute;
-            bottom: 0;
+            bottom: 5px;
             left: 50%;
             transform: translateX(-50%);
-            width: 92%;
+            width: 90%;
             height: 80%;
             background: var(--color-paper);
             padding: 20px 15px;
             box-sizing: border-box;
             border-radius: 8px;
-            transition: all 0.8s ease;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 2;
             text-align: center;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end; /* Đẩy chữ xuống đáy thiệp */
+            align-items: center;
             visibility: hidden;
         }
 
-        .letter h2 { color: #d63384; font-size: 17px; margin: 0 0 10px 0; }
-        .letter p { font-size: 14px; color: #333; line-height: 1.5; margin: 5px 0; }
-
-        /* --- TRẠNG THÁI MỞ --- */
-        .open .envelope-wrapper { animation: none; }
-        .open .photo-frame {
-            opacity: 1;
-            top: -280px; /* Bay cao hẳn lên trên */
+        /* Khung tranh Polaroid lắc lư */
+        .photo-frame {
+            width: 140px;
+            background: white;
+            padding: 8px 8px 20px 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 1px solid #eee;
+            margin-bottom: 15px;
+            transform-origin: top center;
             animation: swing 3s ease-in-out infinite;
         }
-        .open .envelope-flap { transform: rotateX(180deg); z-index: 1; }
-        .open .letter {
-            visibility: visible;
-            bottom: 60px; /* Hạ thấp chân thiệp */
-            height: 320px; /* Tăng độ cao tờ giấy để đủ chỗ chứa chữ */
-            z-index: 5;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+
+        .photo-frame img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
         }
 
         @keyframes swing {
-            0%, 100% { transform: rotate(-3deg); }
-            50% { transform: rotate(3deg); }
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
         }
 
-        /* NÚT BẤM GIỮA PHONG BÌ */
-        .btn-open {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 5;
-            background: #ffffff;
-            color: var(--color-env);
-            padding: 12px 20px;
-            border-radius: 30px;
-            font-weight: bold;
-            font-size: 14px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            border: none;
-            pointer-events: none; /* Cho phép bấm xuyên qua nút */
-            white-space: nowrap;
+        .letter h2 { color: #d63384; font-size: 16px; margin: 0 0 8px 0; }
+        .letter p { font-size: 13px; color: #333; line-height: 1.5; margin: 3px 0; }
+
+        /* --- TRẠNG THÁI MỞ --- */
+        .open.envelope-wrapper { animation: none; }
+        .open .envelope-flap { transform: rotateX(180deg); z-index: 1; }
+        .open .btn-center { display: none; }
+        
+        .open .letter {
+            visibility: visible;
+            height: 400px; /* Kéo dài để ảnh và chữ không đè nhau */
+            bottom: 120px;
+            z-index: 10;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
+            justify-content: flex-start;
         }
 
-        .open .btn-open { display: none; }
-
+        /* TIM RƠI */
         .falling-heart {
             position: absolute;
             top: -10%;
@@ -166,31 +151,35 @@
 </head>
 <body>
 
-    <div class="container" id="mainContainer">
+    <div class="envelope-wrapper" id="envelope" onclick="openEnvelope()">
+        <div class="envelope-flap"></div>
         
-        <div class="photo-frame">
-            <img src="https://lh3.googleusercontent.com/d/1DhLsiNFMmnRSR_NJx-4JQAaS3ZndQN9W" alt="Ảnh kỷ niệm">
+        <div class="btn-center">
+            Gửi Em eoooooo! 💌<br>
+            <small>(Bấm để mở nha)</small>
         </div>
 
-        <div class="envelope-wrapper" id="envelope" onclick="openEnvelope()">
-            <div class="btn-open">Gửi Em eoooooo! 💌</div>
-            <div class="envelope-flap"></div>
-            <div class="letter">
-                <h2>Chúc Mừng Sinh Nhật!</h2>
-                <p>Trân trọng kính mời Em eoooooo</p>
-                <p><strong>19h30 ngày 29/01/2026</strong> tại</p>
-                <p><strong>Hunter Steak - 257 Phan Xích Long, Phú Nhuận</strong></p>
-                <p>để dự tiệc sinh nhật của chính mình.</p>
-                <p><em>(thông báo thời gian với địa điểm thôi<br>chứ anh eo chở 😘)</em></p>
+        <div class="letter">
+            <div class="photo-frame">
+                <img src="https://lh3.googleusercontent.com/d/1DhLsiNFMmnRSR_NJx-4JQAaS3ZndQN9W" alt="Ảnh kỷ niệm">
             </div>
+
+            <h2>Chúc Mừng Sinh Nhật!</h2>
+            <p>Trân trọng kính mời Em eoooooo</p>
+            <p><strong>19h30 ngày 29/01/2026</strong> tại</p>
+            <p><strong>Hunter Steak - 257 Phan Xích Long, Phú Nhuận</strong></p>
+            <p>để dự tiệc sinh nhật của chính mình.</p>
+            <p><em>(thông báo thời gian với địa điểm thôi<br>chứ Anh eoooo chở 😘)</em></p>
         </div>
     </div>
 
     <script>
         function openEnvelope() {
-            document.getElementById('mainContainer').classList.add('open');
-            document.getElementById('envelope').classList.add('open');
-            setInterval(createHeart, 400);
+            const env = document.getElementById('envelope');
+            if(!env.classList.contains('open')){
+                env.classList.add('open');
+                setInterval(createHeart, 400);
+            }
         }
 
         function createHeart() {
