@@ -8,6 +8,7 @@
         :root {
             --color-bg: #ffdef2;
             --color-env: #ff4d94;
+            --color-env-dark: #e63983;
             --color-paper: #ffffff;
         }
 
@@ -16,6 +17,7 @@
             padding: 0;
             background-color: var(--color-bg);
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -23,125 +25,152 @@
             overflow: hidden;
         }
 
-        /* Container chứa phong bì */
-        .envelope-wrapper {
-            position: relative;
-            cursor: pointer;
-            transition: transform 0.3s;
+        /* --- KHUNG TRANH LẮC LƯ --- */
+        .photo-frame {
+            width: 130px;
+            background: white;
+            padding: 10px 10px 20px 10px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            border-radius: 5px;
+            margin-bottom: 20px;
+            transform-origin: top center;
+            animation: swing 3s ease-in-out infinite;
+            z-index: 1;
         }
 
-        .envelope {
+        .photo-frame img {
+            width: 100%;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 2px;
+        }
+
+        @keyframes swing {
+            0%, 100% { transform: rotate(-4deg); }
+            50% { transform: rotate(4deg); }
+        }
+
+        /* --- PHONG BÌ ĐÃ SỬA LỖI --- */
+        .envelope-wrapper {
             position: relative;
             width: 300px;
             height: 200px;
             background-color: var(--color-env);
             border-bottom-left-radius: 10px;
             border-bottom-right-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            cursor: pointer;
+            z-index: 10;
         }
 
         /* Nắp phong bì */
-        .envelope::before {
-            content: "";
+        .envelope-flap {
             position: absolute;
             top: 0;
-            z-index: 2;
+            left: 0;
+            width: 0;
+            height: 0;
             border-left: 150px solid transparent;
             border-right: 150px solid transparent;
-            border-top: 100px solid #ff1a75;
+            border-top: 100px solid var(--color-env-dark);
             transform-origin: top;
-            transition: transform 0.5s 0.3s;
+            transition: transform 0.5s ease;
+            z-index: 4;
         }
 
-        /* Tờ giấy bên trong */
         .letter {
             position: absolute;
-            bottom: 5px;
+            bottom: 10px;
             left: 50%;
             transform: translateX(-50%);
             width: 90%;
-            height: 90%;
+            height: 80%;
             background: var(--color-paper);
-            padding: 20px;
+            padding: 15px;
             box-sizing: border-box;
-            border-radius: 10px;
-            transition: bottom 0.5s, height 0.5s;
-            z-index: 1;
+            border-radius: 8px;
+            transition: all 0.6s ease;
+            z-index: 2;
             text-align: center;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            opacity: 0.8;
         }
 
-        .letter h2 { color: #d63384; font-size: 18px; margin: 0; }
-        .letter p { font-size: 15px; color: #333; line-height: 1.4; }
+        .letter h2 { color: #d63384; font-size: 16px; margin: 0; }
+        .letter p { font-size: 14px; color: #333; line-height: 1.5; margin: 5px 0; }
 
-        /* Khi bấm vào để mở */
-        .envelope-wrapper.open .envelope::before {
+        /* Trạng thái mở */
+        .open .envelope-flap {
             transform: rotateX(180deg);
-            z-index: 0;
+            z-index: 1; /* Đẩy nắp ra sau khi mở */
         }
 
-        .envelope-wrapper.open .letter {
-            bottom: 100px;
+        .open .letter {
+            bottom: 100px; /* Đẩy tờ giấy lên trên */
             height: auto;
             min-height: 220px;
-            z-index: 3;
-            box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+            opacity: 1;
+            z-index: 5;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
         }
 
+        /* Nút bấm */
         .btn-open {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 10;
-            background: white;
-            color: #ff4d94;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
+            z-index: 15; /* Luôn nằm trên cùng để bấm được */
+            background: #ffffff;
+            color: var(--color-env);
+            border: 2px solid var(--color-env);
+            padding: 12px 24px;
+            border-radius: 30px;
             font-weight: bold;
+            font-size: 16px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: 0.3s;
         }
 
-        .open .btn-open { display: none; }
+        .open .btn-open {
+            display: none;
+        }
 
-        /* Hiệu ứng trái tim rơi */
+        /* Tim rơi */
         .falling-heart {
             position: absolute;
             top: -10%;
             color: #ff4d94;
-            font-size: 20px;
             animation: fall linear forwards;
-            z-index: -1;
+            z-index: 0;
         }
 
-        @keyframes fall {
-            to { transform: translateY(110vh) rotate(360deg); }
-        }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
     </style>
 </head>
 <body>
 
-    <div class="envelope-wrapper" onclick="openEnvelope()">
+    <div class="photo-frame">
+        <img src="https://via.placeholder.com/150" alt="Ảnh kỷ niệm">
+    </div>
+
+    <div class="envelope-wrapper" id="envelope" onclick="openEnvelope()">
         <button class="btn-open">Gửi Em eoooooo! 💌</button>
-        <div class="envelope">
-            <div class="letter">
-                <h2>Chúc Mừng Sinh Nhật!</h2>
-                <p>Trân trọng kính mời Em eoooooo <br> 
-                   <strong>19h30 ngày 29/01/2026</strong> tại <br>
-                   <strong>Hunter Steak - 257 Phan Xích Long, Phú Nhuận</strong> <br>
-                   để dự tiệc sinh nhật của chính mình.</p>
-                <p><em>(thông báo thời gian với địa điểm thôi chứ anh eoooo chở 😘)</em></p>
-            </div>
+        <div class="envelope-flap"></div>
+        <div class="letter">
+            <h2>Chúc Mừng Sinh Nhật!</h2>
+            <p>Trân trọng kính mời Em eoooooo <br> 
+               <strong>19h30 ngày 29/01/2026</strong> tại <br>
+               <strong>Hunter Steak - 257 Phan Xích Long, Phú Nhuận</strong> <br>
+               để dự tiệc sinh nhật của chính mình.</p>
+            <p><em>(thông báo thời gian với địa điểm thôi chứ anh eo chở 😘)</em></p>
         </div>
     </div>
 
     <script>
         function openEnvelope() {
-            document.querySelector('.envelope-wrapper').classList.add('open');
-            // Bắt đầu tạo tim rơi sau khi mở
+            document.getElementById('envelope').classList.add('open');
             setInterval(createHeart, 400);
         }
 
