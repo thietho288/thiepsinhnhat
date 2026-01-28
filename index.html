@@ -24,7 +24,7 @@
             overflow: hidden;
         }
 
-        /* --- PHONG BÌ & HIỆU ỨNG RUNG RINH --- */
+        /* --- PHONG BÌ & HIỆU ỨNG RUNG --- */
         .envelope-wrapper {
             position: relative;
             width: 320px;
@@ -59,7 +59,7 @@
             pointer-events: none;
         }
 
-        /* NÚT BẤM GIỮA PHONG BÌ */
+        /* NÚT BẤM (1 DÒNG DUY NHẤT) */
         .btn-center {
             position: absolute;
             top: 55%;
@@ -68,23 +68,24 @@
             z-index: 6;
             background: white;
             color: var(--color-env);
-            padding: 12px 22px;
-            border-radius: 30px;
+            padding: 12px 30px;
+            border-radius: 40px;
             font-weight: bold;
-            font-size: 14px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            font-size: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             text-align: center;
+            white-space: nowrap;
             pointer-events: none;
         }
 
-        /* --- TỜ THIỆP & KHUNG ẢNH LẮC LƯ --- */
+        /* --- TỜ THIỆP (KÉO DÀI XUỐNG ĐÁY) --- */
         .letter {
             position: absolute;
-            bottom: 5px;
+            bottom: 5px; /* Nằm sát đáy phong bì ban đầu */
             left: 50%;
             transform: translateX(-50%);
             width: 90%;
-            height: 80%;
+            height: 85%; /* Độ cao ban đầu khi chưa mở */
             background: var(--color-paper);
             padding: 20px 15px;
             box-sizing: border-box;
@@ -96,16 +97,17 @@
             flex-direction: column;
             align-items: center;
             visibility: hidden;
+            justify-content: flex-end; /* Đẩy nội dung chữ xuống dưới cùng */
         }
 
-        /* Khung tranh Polaroid lắc lư */
+        /* KHUNG ẢNH LẮC LƯ */
         .photo-frame {
             width: 140px;
             background: white;
             padding: 8px 8px 20px 8px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             border: 1px solid #eee;
-            margin-bottom: 15px;
+            margin-bottom: 25px; /* Khoảng cách lớn với chữ */
             transform-origin: top center;
             animation: swing 3s ease-in-out infinite;
         }
@@ -121,8 +123,13 @@
             50% { transform: rotate(5deg); }
         }
 
-        .letter h2 { color: #d63384; font-size: 16px; margin: 0 0 8px 0; }
-        .letter p { font-size: 13px; color: #333; line-height: 1.5; margin: 3px 0; }
+        /* NỘI DUNG CHỮ */
+        .letter-content {
+            margin-bottom: 10px; /* Căn chỉnh chữ gần đáy tờ giấy */
+        }
+
+        .letter h2 { color: #d63384; font-size: 17px; margin: 0 0 10px 0; }
+        .letter p { font-size: 14px; color: #333; line-height: 1.5; margin: 4px 0; }
 
         /* --- TRẠNG THÁI MỞ --- */
         .open.envelope-wrapper { animation: none; }
@@ -131,11 +138,10 @@
         
         .open .letter {
             visibility: visible;
-            height: 400px; /* Kéo dài để ảnh và chữ không đè nhau */
-            bottom: 120px;
+            height: 450px; /* Tăng chiều dài tờ giấy lên tối đa */
+            bottom: 20px;  /* Kéo dài phần nền trắng xuống gần sát đáy phong bì */
             z-index: 10;
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
-            justify-content: flex-start;
+            box-shadow: 0 -15px 35px rgba(0,0,0,0.1);
         }
 
         /* TIM RƠI */
@@ -155,8 +161,7 @@
         <div class="envelope-flap"></div>
         
         <div class="btn-center">
-            Gửi Em eoooooo! 💌<br>
-            <small>(Bấm để mở nha)</small>
+            Gửi Em eoooooo! 💌
         </div>
 
         <div class="letter">
@@ -164,12 +169,14 @@
                 <img src="https://lh3.googleusercontent.com/d/1DhLsiNFMmnRSR_NJx-4JQAaS3ZndQN9W" alt="Ảnh kỷ niệm">
             </div>
 
-            <h2>Chúc Mừng Sinh Nhật!</h2>
-            <p>Trân trọng kính mời Em eoooooo</p>
-            <p><strong>19h30 ngày 29/01/2026</strong> tại</p>
-            <p><strong>Hunter Steak - 257 Phan Xích Long, Phú Nhuận</strong></p>
-            <p>để dự tiệc sinh nhật của chính mình.</p>
-            <p><em>(thông báo thời gian với địa điểm thôi<br>chứ Anh eoooo chở 😘)</em></p>
+            <div class="letter-content">
+                <h2>Mừng Sinh Nhật!</h2>
+                <p>Trân trọng kính mời Em eoooooo</p>
+                <p><strong>19h30 ngày 29/01/2026</strong> tại</p>
+                <p><strong>Hunter Steak - 257 Phan Xích Long, Phú Nhuận</strong></p>
+                <p>để dự tiệc sinh nhật của chính mình.</p>
+                <p><em>(thông báo thời gian với địa điểm thôi<br>chứ Anh eoooo chở 😘)</em></p>
+            </div>
         </div>
     </div>
 
