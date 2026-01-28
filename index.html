@@ -13,27 +13,19 @@
         }
 
         body {
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             background-color: var(--color-bg);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-family: 'Arial', sans-serif;
+            display: flex; justify-content: center; align-items: center;
+            height: 100vh; font-family: 'Arial', sans-serif;
             overflow: hidden;
         }
 
-        /* --- PHONG BÌ & HIỆU ỨNG RUNG --- */
+        /* --- PHONG BÌ & RUNG --- */
         .envelope-wrapper {
-            position: relative;
-            width: 320px;
-            height: 220px;
+            position: relative; width: 320px; height: 220px;
             background-color: var(--color-env);
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
-            cursor: pointer;
-            z-index: 10;
+            border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;
+            cursor: pointer; z-index: 10;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             animation: shake 2s infinite ease-in-out;
         }
@@ -45,146 +37,189 @@
         }
 
         .envelope-flap {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 0;
-            border-left: 160px solid transparent;
-            border-right: 160px solid transparent;
+            position: absolute; top: 0; left: 0; width: 0; height: 0;
+            border-left: 160px solid transparent; border-right: 160px solid transparent;
             border-top: 120px solid var(--color-env-dark);
-            transform-origin: top;
-            transition: transform 0.6s ease;
-            z-index: 5;
-            pointer-events: none;
+            transform-origin: top; transition: transform 0.6s ease;
+            z-index: 5; pointer-events: none;
         }
 
-        /* NÚT BẤM (1 DÒNG DUY NHẤT) */
         .btn-center {
-            position: absolute;
-            top: 55%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 6;
-            background: white;
-            color: var(--color-env);
-            padding: 12px 30px;
-            border-radius: 40px;
-            font-weight: bold;
-            font-size: 15px;
+            position: absolute; top: 55%; left: 50%;
+            transform: translate(-50%, -50%); z-index: 6;
+            background: white; color: var(--color-env);
+            padding: 12px 30px; border-radius: 40px;
+            font-weight: bold; font-size: 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            text-align: center;
-            white-space: nowrap;
-            pointer-events: none;
+            white-space: nowrap; pointer-events: none;
         }
 
-        /* --- TỜ THIỆP (KÉO DÀI XUỐNG ĐÁY) --- */
+        /* --- TỜ THIỆP (GIỮ NỘI DUNG CŨ) --- */
         .letter {
-            position: absolute;
-            bottom: 5px; /* Nằm sát đáy phong bì ban đầu */
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            height: 85%; /* Độ cao ban đầu khi chưa mở */
-            background: var(--color-paper);
-            padding: 20px 15px;
-            box-sizing: border-box;
-            border-radius: 8px;
+            position: absolute; bottom: 5px; left: 50%;
+            transform: translateX(-50%); width: 94%; height: 90%;
+            background: var(--color-paper); padding: 15px 10px;
+            box-sizing: border-box; border-radius: 8px;
             transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 2;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            visibility: hidden;
-            justify-content: flex-end; /* Đẩy nội dung chữ xuống dưới cùng */
+            z-index: 2; text-align: center;
+            display: flex; flex-direction: column; align-items: center;
+            visibility: hidden; justify-content: flex-start;
         }
 
-        /* KHUNG ẢNH LẮC LƯ */
         .photo-frame {
-            width: 140px;
-            background: white;
-            padding: 8px 8px 20px 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border: 1px solid #eee;
-            margin-bottom: 25px; /* Khoảng cách lớn với chữ */
-            transform-origin: top center;
-            animation: swing 3s ease-in-out infinite;
+            width: 130px; background: white; padding: 5px 5px 15px 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 1px solid #eee;
+            margin-bottom: 10px; transform-origin: top center;
+            animation: swing 3s ease-in-out infinite; flex-shrink: 0;
         }
-
-        .photo-frame img {
-            width: 100%;
-            height: 140px;
-            object-fit: cover;
-        }
+        .photo-frame img { width: 100%; height: 130px; object-fit: cover; }
 
         @keyframes swing {
-            0%, 100% { transform: rotate(-5deg); }
-            50% { transform: rotate(5deg); }
+            0%, 100% { transform: rotate(-4deg); }
+            50% { transform: rotate(4deg); }
         }
 
-        /* NỘI DUNG CHỮ */
-        .letter-content {
-            margin-bottom: 10px; /* Căn chỉnh chữ gần đáy tờ giấy */
+        /* NỘI DUNG CŨ CỦA BẠN */
+        .letter h2 { color: #d63384; font-size: 16px; margin: 5px 0; }
+        .letter p { font-size: 12.5px; color: #333; line-height: 1.4; margin: 3px 0; }
+
+        /* --- ĐỒNG HỒ ĐẾM NGƯỢC --- */
+        .countdown {
+            display: flex; gap: 6px; margin: 10px 0;
+            background: #fff0f6; padding: 6px 12px; border-radius: 12px;
+            flex-shrink: 0;
+        }
+        .time-box { font-size: 11px; color: #ff4d94; font-weight: bold; }
+
+        /* --- SLIDE ẢNH CHẠY --- */
+        .slider-container {
+            width: 100%; height: 85px; overflow: hidden;
+            margin-top: 12px; position: relative; border-radius: 8px;
+            flex-shrink: 0; background: #fafafa;
+        }
+        .slide-track {
+            display: flex; width: calc(85px * 10);
+            animation: scroll 15s linear infinite;
+        }
+        .slide-track img {
+            width: 75px; height: 75px; object-fit: cover; 
+            margin: 5px; border-radius: 6px;
         }
 
-        .letter h2 { color: #d63384; font-size: 17px; margin: 0 0 10px 0; }
-        .letter p { font-size: 14px; color: #333; line-height: 1.5; margin: 4px 0; }
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-85px * 5)); }
+        }
 
-        /* --- TRẠNG THÁI MỞ --- */
+        /* --- MỞ THIỆP --- */
         .open.envelope-wrapper { animation: none; }
         .open .envelope-flap { transform: rotateX(180deg); z-index: 1; }
         .open .btn-center { display: none; }
-        
         .open .letter {
-            visibility: visible;
-            height: 450px; /* Tăng chiều dài tờ giấy lên tối đa */
-            bottom: 20px;  /* Kéo dài phần nền trắng xuống gần sát đáy phong bì */
-            z-index: 10;
+            visibility: visible; height: 530px; /* Tăng để chứa slide */
+            bottom: 60px; z-index: 10;
             box-shadow: 0 -15px 35px rgba(0,0,0,0.1);
         }
 
-        /* TIM RƠI */
-        .falling-heart {
-            position: absolute;
-            top: -10%;
-            color: #ff4d94;
-            animation: fall linear forwards;
-            z-index: 0;
-        }
+        canvas { position: absolute; top: 0; left: 0; pointer-events: none; z-index: 100; }
+        .falling-heart { position: absolute; top: -10%; color: #ff4d94; animation: fall linear forwards; z-index: 0; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
     </style>
 </head>
 <body>
 
+    <canvas id="canvas"></canvas>
+
     <div class="envelope-wrapper" id="envelope" onclick="openEnvelope()">
         <div class="envelope-flap"></div>
+        <div class="btn-center">Gửi Em eoooooo! 💌</div>
         
-        <div class="btn-center">
-            Gửi Em eoooooo! 💌
-        </div>
-
         <div class="letter">
             <div class="photo-frame">
                 <img src="https://lh3.googleusercontent.com/d/1DhLsiNFMmnRSR_NJx-4JQAaS3ZndQN9W" alt="Ảnh kỷ niệm">
             </div>
 
-            <div class="letter-content">
-                <h2>Mừng Sinh Nhật!</h2>
-                <p>Trân trọng kính mời Em eoooooo</p>
-                <p><strong>19h30 ngày 29/01/2026</strong> tại</p>
-                <p><strong>Hunter Steak - 257 Phan Xích Long, Phú Nhuận</strong></p>
-                <p>để dự tiệc sinh nhật của chính mình.</p>
-                <p><em>(thông báo thời gian với địa điểm thôi<br>chứ Anh eoooo chở 😘)</em></p>
+            <h2>Chúc Mừng Sinh Nhật!</h2>
+            <p>Trân trọng kính mời Em eoooooo</p>
+            <p><strong>19h30 ngày 29/01/2026</strong> tại</p>
+            <p><strong>Hunter Steak - 257 Phan Xích Long, Phú Nhuận</strong></p>
+            <p>để dự tiệc sinh nhật của chính mình.</p>
+
+            <div class="countdown" id="timer">
+                <div class="time-box" id="days">-- Ngày</div>
+                <div class="time-box" id="hours">-- Giờ</div>
+                <div class="time-box" id="mins">-- Phút</div>
+                <div class="time-box" id="secs">-- Giây</div>
+            </div>
+
+            <p><em>(thông báo thời gian với địa điểm thôi<br>chứ anh eo chở 😘)</em></p>
+
+            <div class="slider-container">
+                <div class="slide-track">
+                    <img src="https://lh3.googleusercontent.com/d/1dVZBlRINqibCt2ZKAu85e2gnQLGwuLta">
+                    <img src="https://lh3.googleusercontent.com/d/1MfeNfjDkNLmLVmZKOOuf2kEWKcKtwSyy">
+                    <img src="https://lh3.googleusercontent.com/d/1AOoyaq3x-F1DIMC4S5NkhxvMLM3UN9CZ">
+                    <img src="https://lh3.googleusercontent.com/d/1awldwGLGnEHykUqAIMtO4F6Lp8wrNZaI">
+                    <img src="https://lh3.googleusercontent.com/d/1DhLsiNFMmnRSR_NJx-4JQAaS3ZndQN9W">
+                    <img src="https://lh3.googleusercontent.com/d/1f7sC2ieNM7UNH5nCG705bE6Li8o7_74J">
+                    <img src="https://lh3.googleusercontent.com/d/1GG41UcULsAcaj39DPPCYhkeLbtmJ_r63">
+                </div>
             </div>
         </div>
     </div>
 
     <script>
+        // Cập nhật đếm ngược
+        const targetDate = new Date("Jan 29, 2026 19:30:00").getTime();
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+            if (diff < 0) {
+                document.getElementById("timer").innerHTML = "ĐẾN GIỜ RỒI! ❤️";
+                return;
+            }
+            document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24)) + " Ngày";
+            document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) + " Giờ";
+            document.getElementById("mins").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)) + " Phút";
+            document.getElementById("secs").innerText = Math.floor((diff % (1000 * 60)) / 1000) + " Giây";
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // PHÁO HOA
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resizeCanvas); resizeCanvas();
+
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x; this.y = y; this.color = color;
+                this.velocity = { x: (Math.random() - 0.5) * 8, y: (Math.random() - 0.5) * 8 };
+                this.alpha = 1; this.friction = 0.95;
+            }
+            draw() { ctx.globalAlpha = this.alpha; ctx.beginPath(); ctx.arc(this.x, this.y, 2, 0, Math.PI * 2); ctx.fillStyle = this.color; ctx.fill(); }
+            update() { this.velocity.x *= this.friction; this.velocity.y *= this.friction; this.x += this.velocity.x; this.y += this.velocity.y; this.alpha -= 0.01; }
+        }
+
+        function createFirework(x, y) {
+            const colors = ['#ff4d94', '#ffeb3b', '#00e676', '#ffffff'];
+            for (let i = 0; i < 40; i++) particles.push(new Particle(x, y, colors[Math.floor(Math.random() * colors.length)]));
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((p, i) => { if (p.alpha <= 0) particles.splice(i, 1); else { p.update(); p.draw(); } });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
         function openEnvelope() {
             const env = document.getElementById('envelope');
             if(!env.classList.contains('open')){
                 env.classList.add('open');
+                createFirework(window.innerWidth/2, window.innerHeight/2);
                 setInterval(createHeart, 400);
             }
         }
